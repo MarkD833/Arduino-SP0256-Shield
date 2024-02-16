@@ -42,14 +42,29 @@ Install the SP0256-AL2, 74HCT595 and the 25LC256 EEPROM.
 I've created a simple test sketch that you can use to send any of the allophones. It's in the code folder and called Test_03. You can type in either the allophone number (0-63) or the allophone name. Multiple allophones can be generated - simply put a space between each allophone.
  As a start, the allophones for the word "hello" are:
  
-> PA2 HH1 EH LL OW PA3     or    1 27 7 45 53 2
+> PA2 HH1 EH LL OW PA3
+
+or
+
+> 1 27 7 45 53 2
 
 Note that the SP0256-AL2 needs a silence allophone at the end of a sequence otherwise it continues to output the last sound it made.
 
 # Further information
 
-Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256.
+Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256. The SP0256-AL2 datasheet details the allophones as well as examples of their use in english words.
 
+# Bored with trying to work out the required allophones yet?
+
+I discovered a [software implementation of the CTS256 chip](https://github.com/GmEsoft/SP0256_CTS256A-AL2). The CTS256 chip is used to convertt plain ASCII character words into the required allophones that the SP0256-AL2 uses. The software can be compiled using the free version of Visual Studio. Once compiled, you can use the CTS256 simulator to produce the required allophones like this:
+`
+> CTS256A-AL2.exe hello
+CTS256A-AL2(tm) Emulator - v0.0.6-alpha
+
+ PA2 HH1 EH LL OW PA3
+
+Conversion complete.
+`
 ## Version History
 
 * 0.1
