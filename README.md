@@ -57,14 +57,14 @@ Have a look in the datasheets folder for information on the SP0256-AL2 chip and 
 # Bored with trying to work out the required allophones yet?
 
 I discovered a [software implementation of the CTS256 chip](https://github.com/GmEsoft/SP0256_CTS256A-AL2). The CTS256 chip is used to convertt plain ASCII character words into the required allophones that the SP0256-AL2 uses. The software can be compiled using the free version of Visual Studio. Once compiled, you can use the CTS256 simulator to produce the required allophones like this:
-`
+
 > CTS256A-AL2.exe hello
-CTS256A-AL2(tm) Emulator - v0.0.6-alpha
+> CTS256A-AL2(tm) Emulator - v0.0.6-alpha
+>
+> PA2 HH1 EH LL OW PA3
+>
+> Conversion complete.
 
- PA2 HH1 EH LL OW PA3
-
-Conversion complete.
-`
 ## Version History
 
 * 0.1
