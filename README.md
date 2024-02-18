@@ -42,14 +42,28 @@ Install the SP0256-AL2, 74HCT595 and the 25LC256 EEPROM.
 I've created a simple test sketch that you can use to send any of the allophones. It's in the code folder and called Test_03. You can type in either the allophone number (0-63) or the allophone name. Multiple allophones can be generated - simply put a space between each allophone.
  As a start, the allophones for the word "hello" are:
  
-> PA2 HH1 EH LL OW PA3
+> PA2 HH1 EH LL OW PA1
 
 or
 
-> 1 27 7 45 53 2
+> 1 27 7 45 53 0
 
-Note that the SP0256-AL2 needs a silence allophone at the end of a sequence otherwise it continues to output the last sound it made.
+Note that the SP0256-AL2 needs a silence allophone such as PA1 at the end of a sequence otherwise it continues to output the last sound it made.
 
+The test sketch also supports the upload of Intel-Hex records that are then programmed into the 25LC256 EEPROM. I've set the baud rate sor the serial port to 9600 baud as there is no handshaking with the host and setting the baud rate too high will likely result in buffer overruns whilst waiting for the previous iHex record to be programmed into the EEPROM.
+
+# Creating a library of words
+
+It took a little bit of lateral thinking but I discovered that I could use the free online assembler at [ASM80.com](https://asm80.com) to create Intel Hex records.
+
+The layout of the EEPROM memory starts with a lookup table at address 0x0000. The first word is the number of entries in the lookup table. Each word after that is a start address in the EEPROM for a sequence of allophones terminated with an 0xFF.
+
+I've included a sample library of a few words in the code folder called speech_1.asm. This plain text file can be pasted into a new file on asm80.com (I used the 8080 CPU type when creating the new file). The file is then saved and compiled to produce the Intel-Hex file which is then copied (CTRL-C) and then pasted using TeraTerm Pro straight onto the UNO serial port.
+
+The sketch will detect the leading : and assume the rest of the line is an Intel-Hex record and read it in, parse it and program it into the EEPROM. 
+
+To speak one of the stored phrases, just type in the phrase number + 100. The first phrase stored in the EEPROM is played back by entering 101 as the phrase. Numbers less than 100 are assumed to be the allophone numbers and passed directly to the SP0256-AL2 chip.
+ 
 # Further information
 
 Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256. The SP0256-AL2 datasheet details the allophones as well as examples of their use in english words.
@@ -66,7 +80,9 @@ I discovered a [software implementation of the CTS256 chip](https://github.com/G
 >
 > Conversion complete.
 
-## Version History
+# Known errors
+
+So far the only addition is a 10K pull up resistor on the ALD line to stop spurious sounds whilst uploading sketches.
 
 * 0.1
     * Initial Release

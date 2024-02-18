@@ -1,0 +1,370 @@
+0000                          .ORG   0000H   
+0000   31 00        DICT:     DW   (LUTEND/2)-1   
+0002   64 00 6D 00 76 00 81 00 8A 00 DW   MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY   
+000C   93 00 9F 00            DW   SATURDAY,SUNDAY   
+0010   AA 00 B3 00 BF 00 C6 00 D0 00 D5 00 DB 00 DW   JANUARY,FEBRUARY,MARCH,APRIL,MAY,JUNE,JULY   
+001E   E2 00 ED 00 FC 00 08 01 14 01 DW   AUGUST,SEPTEMBER,OCTOBER,NOVEMBER,DECEMBER   
+0028   21 01 27 01 2D 01 32 01 38 01 3E 01 44 01 DW   ZERO,ONE,TWO,THREE,FOUR,FIVE,SIX   
+0036   4D 01 56 01 5C 01 63 01 6B 01 75 01 DW   SEVEN,EIGHT,NINE,TEN,ELEVEN,TWELVE   
+0042   7D 01 87 01 91 01 9C 01 AA 01 DW   THIRTEEN,FOURTEEN,FIFTEEN,SIXTEEN,SEVENTEEN   
+004C   B8 01 C1 01 CB 01 D6 01 DF 01 E7 01 DW   EIGHTEEN,NINETEEN,TWENTY,THIRTY,FOURTY,FIFTY   
+0058   F1 01 FE 01 0B 02 12 02 1C 02 29 02 DW   SIXTY,SEVENTY,EIGHTY,NINTY,HUNDRED,THOUSAND   
+0064                LUTEND:      
+0064                             ;====================================================================
+0064                             ; These are the sequences of allophones needed to create the sound
+0064                             ; of each individual word. Make sure to end each sequence with 0xFF
+0064                             ;====================================================================
+0064                             ; DAYS OF THE WEEK
+0064   01 10 0F 0B 01 21 14 00 FF MONDAY:   DB   PA2,MM,AX,NN1,PA2,DD2,EY,PA1,0xFF   
+006D   01 0D 1F 2B 01 21 14 00 FF TUESDAY:   DB   PA2,TT2,UW2,ZZ,PA2,DD2,EY,PA1,0xFF   
+0076   01 2E 07 07 0B 2B 01 21 14 00 FF WEDNESDAY:   DB   PA2,WW,EH,EH,NN1,ZZ,PA2,DD2,EY,PA1,0xFF   
+0081   01 1D 34 2B 01 21 14 00 FF THURSDAY:   DB   PA2,TH,ER2,ZZ,PA2,DD2,EY,PA1,0xFF   
+008A   01 28 27 06 02 21 14 00 FF FRIDAY:   DB   PA2,FF,RR2,AY,PA3,DD2,EY,PA1,0xFF   
+0093   01 37 37 1A 02 0D 33 01 21 14 00 FF SATURDAY:   DB   PA2,SS,SS,AE,PA3,TT2,ER1,PA2,DD2,EY,PA1,0xFF   
+009F   01 37 37 0F 0F 0B 01 21 14 00 FF SUNDAY:   DB   PA2,SS,SS,AX,AX,NN1,PA2,DD2,EY,PA1,0xFF   
+00AA                             ; MONTHS
+00AA   01 0A 1A 0B 19 2F 13 00 FF JANUARY:   DB   PA2,JH,AE,NN1,YY2,XR,IY,PA1,0xFF   
+00B3   01 28 07 07 00 3F 27 1F 2F 13 00 FF FEBRUARY:   DB   PA2,FF,EH,EH,PA1,BB2,RR2,UW2,XR,IY,PA1,0xFF   
+00BF   01 10 3B 02 32 00 FF MARCH:   DB   PA2,MM,AR,PA3,CH,PA1,0xFF   
+00C6   01 14 02 09 27 0C 0C 2D 00 FF APRIL:   DB   PA2,EY,PA3,PP,RR2,IH,IH,LL,PA1,0xFF   
+00D0   01 10 14 00 FF MAY:    DB   PA2,MM,EY,PA1,0xFF   
+00D5   01 0A 1F 0B 00 FF JUNE:   DB   PA2,JH,UW2,NN1,PA1,0xFF   
+00DB   01 0A 16 2D 06 00 FF JULY:   DB   PA2,JH,UW1,LL,AY,PA1,0xFF   
+00E2   01 17 17 01 3D 0F 37 02 11 00 FF AUGUST:   DB   PA2,AO,AO,PA2,GG2,AX,SS,PA3,TT1,PA1,0xFF   
+00ED   01 37 37 07 02 09 02 0D 07 07 10 1C 33 00 FF SEPTEMBER:   DB   PA2,SS,SS,EH,PA3,PP,PA3,TT2,EH,EH,MM,BB1,ER1,PA1,0xFF   
+00FC   01 17 01 29 02 0D 35 00 3F 33 00 FF OCTOBER:   DB   PA2,AO,PA2,KK2,PA3,TT2,OW,PA1,BB2,ER1,PA1,0xFF   
+0108   01 38 35 23 07 07 10 00 3F 33 00 FF NOVEMBER:   DB   PA2,NN2,OW,VV,EH,EH,MM,PA1,BB2,ER1,PA1,0xFF   
+0114   01 21 0C 37 37 07 07 10 00 3F 33 00 FF DECEMBER:   DB   PA2,DD2,IH,SS,SS,EH,EH,MM,PA1,BB2,ER1,PA1,0xFF   
+0121                             ; NUMBERS
+0121   01 2B 3C 35 00 FF ZERO:   DB   PA2,ZZ,YR,OW,PA1,0xFF   
+0127   01 2E 0F 0B 00 FF ONE:   DB   PA2,WW,AX,NN1,PA1,0xFF   
+012D   01 0D 1F 00 FF TWO:    DB   PA2,TT2,UW2,PA1,0xFF   
+0132   01 1D 0E 13 00 FF THREE:   DB   PA2,TH,RR1,IY,PA1,0xFF   
+0138   01 28 28 3A 00 FF FOUR:   DB   PA2,FF,FF,OR,PA1,0xFF   
+013E   01 28 06 23 00 FF FIVE:   DB   PA2,FF,AY,VV,PA1,0xFF   
+0144   01 37 37 0C 02 29 37 00 FF SIX:   DB   PA2,SS,SS,IH,PA3,KK2,SS,PA1,0xFF   
+014D   01 37 37 07 23 0C 0B 00 FF SEVEN:   DB   PA2,SS,SS,EH,VV,IH,NN1,PA1,0xFF   
+0156   01 14 02 0D 00 FF EIGHT:   DB   PA2,EY,PA3,TT2,PA1,0xFF   
+015C   01 38 06 00 38 00 FF NINE:   DB   PA2,NN2,AY,PA1,NN2,PA1,0xFF   
+0163   01 0D 00 07 07 0B 00 FF TEN:   DB   PA2,TT2,PA1,EH,EH,NN1,PA1,0xFF   
+016B   01 0C 2D 07 07 23 07 0B 00 FF ELEVEN:   DB   PA2,IH,LL,EH,EH,VV,EH,NN1,PA1,0xFF   
+0175   01 0D 30 07 2D 23 02 FF TWELVE:   DB   PA2,TT2,WH,EH,LL,VV,PA3,0xFF   
+017D   01 1D 33 01 02 0D 13 0B 00 FF THIRTEEN:   DB   PA2,TH,ER1,PA2,PA3,TT2,IY,NN1,PA1,0xFF   
+0187   01 28 3A 01 0D 13 01 0B 00 FF FOURTEEN:   DB   PA2,FF,OR,PA2,TT2,IY,PA2,NN1,PA1,0xFF   
+0191   01 28 0C 28 01 02 0D 13 0B 00 FF FIFTEEN:   DB   PA2,FF,IH,FF,PA2,PA3,TT2,IY,NN1,PA1,0xFF   
+019C   01 37 37 0C 02 29 37 01 02 0D 13 0B 00 FF SIXTEEN:   DB   PA2,SS,SS,IH,PA3,KK2,SS,PA2,PA3,TT2,IY,NN1,PA1,0xFF   
+01AA   01 37 37 07 23 0C 0B 01 02 0D 13 0B 00 FF SEVENTEEN:   DB   PA2,SS,SS,EH,VV,IH,NN1,PA2,PA3,TT2,IY,NN1,PA1,0xFF   
+01B8   01 14 01 02 0D 13 0B 00 FF EIGHTEEN:   DB   PA2,EY,PA2,PA3,TT2,IY,NN1,PA1,0xFF   
+01C1   01 38 06 0B 02 0D 13 0B 00 FF NINETEEN:   DB   PA2,NN2,AY,NN1,PA3,TT2,IY,NN1,PA1,0xFF   
+01CB   01 0D 30 07 0B 01 02 0D 13 00 FF TWENTY:   DB   PA2,TT2,WH,EH,NN1,PA2,PA3,TT2,IY,PA1,0xFF   
+01D6   01 1D 34 01 02 0D 13 00 FF THIRTY:   DB   PA2,TH,ER2,PA2,PA3,TT2,IY,PA1,0xFF   
+01DF   01 28 3A 02 0D 13 00 FF FOURTY:   DB   PA2,FF,OR,PA3,TT2,IY,PA1,0xFF   
+01E7   01 28 0C 28 01 02 0D 13 00 FF FIFTY:   DB   PA2,FF,IH,FF,PA2,PA3,TT2,IY,PA1,0xFF   
+01F1   01 37 37 0C 02 29 37 01 02 0D 13 00 FF SIXTY:   DB   PA2,SS,SS,IH,PA3,KK2,SS,PA2,PA3,TT2,IY,PA1,0xFF   
+01FE   01 37 37 07 23 0C 0B 01 02 0D 13 00 FF SEVENTY:   DB   PA2,SS,SS,EH,VV,IH,NN1,PA2,PA3,TT2,IY,PA1,0xFF   
+020B   01 14 02 0D 13 00 FF EIGHTY:   DB   PA2,EY,PA3,TT2,IY,PA1,0xFF   
+0212   01 38 00 06 0B 02 0D 13 00 FF NINTY:   DB   PA2,NN2,PA1,AY,NN1,PA3,TT2,IY,PA1,0xFF   
+021C   01 39 0F 0F 0B 01 21 27 07 01 21 00 FF HUNDRED:   DB   PA2,HH2,AX,AX,NN1,PA2,DD2,RR2,EH,PA2,DD2,PA1,0xFF   
+0229   01 1D 18 20 2B 1A 00 00 0B 21 00 FF THOUSAND:   DB   PA2,TH,AA,AW,ZZ,AE,PA1,PA1,NN1,DD2,PA1,0xFF   
+0235                             ;====================================================================
+0235                             ; These are the 64 allophones for the SP0256-AL2
+0235                             ; Leave this at the end of the file
+0235                             ;====================================================================
+0235                PA1:      EQU   00   
+0235                PA2:      EQU   01   
+0235                PA3:      EQU   02   
+0235                PA4:      EQU   03   
+0235                PA5:      EQU   04   
+0235                OY:       EQU   05   
+0235                AY:       EQU   06   
+0235                EH:       EQU   07   
+0235                KK3:      EQU   08   
+0235                PP:       EQU   09   
+0235                JH:       EQU   10   
+0235                NN1:      EQU   11   
+0235                IH:       EQU   12   
+0235                TT2:      EQU   13   
+0235                RR1:      EQU   14   
+0235                AX:       EQU   15   
+0235                MM:       EQU   16   
+0235                TT1:      EQU   17   
+0235                DH1:      EQU   18   
+0235                IY:       EQU   19   
+0235                EY:       EQU   20   
+0235                DD1:      EQU   21   
+0235                UW1:      EQU   22   
+0235                AO:       EQU   23   
+0235                AA:       EQU   24   
+0235                YY2:      EQU   25   
+0235                AE:       EQU   26   
+0235                HH1:      EQU   27   
+0235                BB1:      EQU   28   
+0235                TH:       EQU   29   
+0235                UH:       EQU   30   
+0235                UW2:      EQU   31   
+0235                AW:       EQU   32   
+0235                DD2:      EQU   33   
+0235                GG3:      EQU   34   
+0235                VV:       EQU   35   
+0235                GG1:      EQU   36   
+0235                SH:       EQU   37   
+0235                ZH:       EQU   38   
+0235                RR2:      EQU   39   
+0235                FF:       EQU   40   
+0235                KK2:      EQU   41   
+0235                KK1:      EQU   42   
+0235                ZZ:       EQU   43   
+0235                NG:       EQU   44   
+0235                LL:       EQU   45   
+0235                WW:       EQU   46   
+0235                XR:       EQU   47   
+0235                WH:       EQU   48   
+0235                YY1:      EQU   49   
+0235                CH:       EQU   50   
+0235                ER1:      EQU   51   
+0235                ER2:      EQU   52   
+0235                OW:       EQU   53   
+0235                DH2:      EQU   54   
+0235                SS:       EQU   55   
+0235                NN2:      EQU   56   
+0235                HH2:      EQU   57   
+0235                OR:       EQU   58   
+0235                AR:       EQU   59   
+0235                YR:       EQU   60   
+0235                GG2:      EQU   61   
+0235                EL:       EQU   62   
+0235                BB2:      EQU   63   
+
+
+DICT:               0000 DEFINED AT LINE 3
+LUTEND:             0064 DEFINED AT LINE 16
+                    > USED AT LINE 3
+MONDAY:             0064 DEFINED AT LINE 23
+                    > USED AT LINE 4
+TUESDAY:            006D DEFINED AT LINE 24
+                    > USED AT LINE 4
+WEDNESDAY:          0076 DEFINED AT LINE 25
+THURSDAY:           0081 DEFINED AT LINE 26
+FRIDAY:             008A DEFINED AT LINE 27
+SATURDAY:           0093 DEFINED AT LINE 28
+                    > USED AT LINE 5
+SUNDAY:             009F DEFINED AT LINE 29
+                    > USED AT LINE 5
+JANUARY:            00AA DEFINED AT LINE 32
+                    > USED AT LINE 7
+FEBRUARY:           00B3 DEFINED AT LINE 33
+                    > USED AT LINE 7
+MARCH:              00BF DEFINED AT LINE 34
+APRIL:              00C6 DEFINED AT LINE 35
+MAY:                00D0 DEFINED AT LINE 36
+JUNE:               00D5 DEFINED AT LINE 37
+JULY:               00DB DEFINED AT LINE 38
+AUGUST:             00E2 DEFINED AT LINE 39
+                    > USED AT LINE 8
+SEPTEMBER:          00ED DEFINED AT LINE 40
+                    > USED AT LINE 8
+OCTOBER:            00FC DEFINED AT LINE 41
+NOVEMBER:           0108 DEFINED AT LINE 42
+DECEMBER:           0114 DEFINED AT LINE 43
+ZERO:               0121 DEFINED AT LINE 46
+                    > USED AT LINE 10
+ONE:                0127 DEFINED AT LINE 47
+                    > USED AT LINE 10
+TWO:                012D DEFINED AT LINE 48
+THREE:              0132 DEFINED AT LINE 49
+FOUR:               0138 DEFINED AT LINE 50
+FIVE:               013E DEFINED AT LINE 51
+SIX:                0144 DEFINED AT LINE 52
+SEVEN:              014D DEFINED AT LINE 53
+                    > USED AT LINE 11
+EIGHT:              0156 DEFINED AT LINE 54
+                    > USED AT LINE 11
+NINE:               015C DEFINED AT LINE 55
+TEN:                0163 DEFINED AT LINE 56
+ELEVEN:             016B DEFINED AT LINE 57
+TWELVE:             0175 DEFINED AT LINE 58
+THIRTEEN:           017D DEFINED AT LINE 59
+                    > USED AT LINE 12
+FOURTEEN:           0187 DEFINED AT LINE 60
+                    > USED AT LINE 12
+FIFTEEN:            0191 DEFINED AT LINE 61
+SIXTEEN:            019C DEFINED AT LINE 62
+SEVENTEEN:          01AA DEFINED AT LINE 63
+EIGHTEEN:           01B8 DEFINED AT LINE 64
+                    > USED AT LINE 13
+NINETEEN:           01C1 DEFINED AT LINE 65
+                    > USED AT LINE 13
+TWENTY:             01CB DEFINED AT LINE 66
+THIRTY:             01D6 DEFINED AT LINE 67
+FOURTY:             01DF DEFINED AT LINE 68
+FIFTY:              01E7 DEFINED AT LINE 69
+SIXTY:              01F1 DEFINED AT LINE 70
+                    > USED AT LINE 14
+SEVENTY:            01FE DEFINED AT LINE 71
+                    > USED AT LINE 14
+EIGHTY:             020B DEFINED AT LINE 72
+NINTY:              0212 DEFINED AT LINE 73
+HUNDRED:            021C DEFINED AT LINE 74
+THOUSAND:           0229 DEFINED AT LINE 75
+PA1:                0000 DEFINED AT LINE 82
+PA2:                0001 DEFINED AT LINE 83
+                    > USED AT LINE 23
+                    > USED AT LINE 24
+                    > USED AT LINE 25
+                    > USED AT LINE 26
+                    > USED AT LINE 27
+                    > USED AT LINE 28
+                    > USED AT LINE 29
+                    > USED AT LINE 32
+                    > USED AT LINE 33
+                    > USED AT LINE 34
+                    > USED AT LINE 35
+                    > USED AT LINE 36
+                    > USED AT LINE 37
+                    > USED AT LINE 38
+                    > USED AT LINE 39
+                    > USED AT LINE 40
+                    > USED AT LINE 41
+                    > USED AT LINE 42
+                    > USED AT LINE 43
+                    > USED AT LINE 46
+                    > USED AT LINE 47
+                    > USED AT LINE 48
+                    > USED AT LINE 49
+                    > USED AT LINE 50
+                    > USED AT LINE 51
+                    > USED AT LINE 52
+                    > USED AT LINE 53
+                    > USED AT LINE 54
+                    > USED AT LINE 55
+                    > USED AT LINE 56
+                    > USED AT LINE 57
+                    > USED AT LINE 58
+                    > USED AT LINE 59
+                    > USED AT LINE 60
+                    > USED AT LINE 61
+                    > USED AT LINE 62
+                    > USED AT LINE 63
+                    > USED AT LINE 64
+                    > USED AT LINE 65
+                    > USED AT LINE 66
+                    > USED AT LINE 67
+                    > USED AT LINE 68
+                    > USED AT LINE 69
+                    > USED AT LINE 70
+                    > USED AT LINE 71
+                    > USED AT LINE 72
+                    > USED AT LINE 73
+                    > USED AT LINE 74
+                    > USED AT LINE 75
+PA3:                0002 DEFINED AT LINE 84
+PA4:                0003 DEFINED AT LINE 85
+PA5:                0004 DEFINED AT LINE 86
+OY:                 0005 DEFINED AT LINE 87
+AY:                 0006 DEFINED AT LINE 88
+EH:                 0007 DEFINED AT LINE 89
+KK3:                0008 DEFINED AT LINE 90
+PP:                 0009 DEFINED AT LINE 91
+JH:                 000A DEFINED AT LINE 92
+                    > USED AT LINE 32
+                    > USED AT LINE 37
+                    > USED AT LINE 38
+NN1:                000B DEFINED AT LINE 93
+IH:                 000C DEFINED AT LINE 94
+                    > USED AT LINE 57
+TT2:                000D DEFINED AT LINE 95
+                    > USED AT LINE 24
+                    > USED AT LINE 48
+                    > USED AT LINE 56
+                    > USED AT LINE 58
+                    > USED AT LINE 66
+RR1:                000E DEFINED AT LINE 96
+AX:                 000F DEFINED AT LINE 97
+MM:                 0010 DEFINED AT LINE 98
+                    > USED AT LINE 23
+                    > USED AT LINE 34
+                    > USED AT LINE 36
+TT1:                0011 DEFINED AT LINE 99
+DH1:                0012 DEFINED AT LINE 100
+IY:                 0013 DEFINED AT LINE 101
+EY:                 0014 DEFINED AT LINE 102
+                    > USED AT LINE 35
+                    > USED AT LINE 54
+                    > USED AT LINE 64
+                    > USED AT LINE 72
+DD1:                0015 DEFINED AT LINE 103
+UW1:                0016 DEFINED AT LINE 104
+AO:                 0017 DEFINED AT LINE 105
+                    > USED AT LINE 39
+                    > USED AT LINE 41
+AA:                 0018 DEFINED AT LINE 106
+YY2:                0019 DEFINED AT LINE 107
+AE:                 001A DEFINED AT LINE 108
+HH1:                001B DEFINED AT LINE 109
+BB1:                001C DEFINED AT LINE 110
+TH:                 001D DEFINED AT LINE 111
+                    > USED AT LINE 26
+                    > USED AT LINE 49
+                    > USED AT LINE 59
+                    > USED AT LINE 67
+                    > USED AT LINE 75
+UH:                 001E DEFINED AT LINE 112
+UW2:                001F DEFINED AT LINE 113
+AW:                 0020 DEFINED AT LINE 114
+DD2:                0021 DEFINED AT LINE 115
+                    > USED AT LINE 43
+GG3:                0022 DEFINED AT LINE 116
+VV:                 0023 DEFINED AT LINE 117
+GG1:                0024 DEFINED AT LINE 118
+SH:                 0025 DEFINED AT LINE 119
+ZH:                 0026 DEFINED AT LINE 120
+RR2:                0027 DEFINED AT LINE 121
+FF:                 0028 DEFINED AT LINE 122
+                    > USED AT LINE 27
+                    > USED AT LINE 33
+                    > USED AT LINE 50
+                    > USED AT LINE 51
+                    > USED AT LINE 60
+                    > USED AT LINE 61
+                    > USED AT LINE 68
+                    > USED AT LINE 69
+KK2:                0029 DEFINED AT LINE 123
+KK1:                002A DEFINED AT LINE 124
+ZZ:                 002B DEFINED AT LINE 125
+                    > USED AT LINE 46
+NG:                 002C DEFINED AT LINE 126
+LL:                 002D DEFINED AT LINE 127
+WW:                 002E DEFINED AT LINE 128
+                    > USED AT LINE 25
+                    > USED AT LINE 47
+XR:                 002F DEFINED AT LINE 129
+WH:                 0030 DEFINED AT LINE 130
+YY1:                0031 DEFINED AT LINE 131
+CH:                 0032 DEFINED AT LINE 132
+ER1:                0033 DEFINED AT LINE 133
+ER2:                0034 DEFINED AT LINE 134
+OW:                 0035 DEFINED AT LINE 135
+DH2:                0036 DEFINED AT LINE 136
+SS:                 0037 DEFINED AT LINE 137
+                    > USED AT LINE 28
+                    > USED AT LINE 29
+                    > USED AT LINE 40
+                    > USED AT LINE 52
+                    > USED AT LINE 53
+                    > USED AT LINE 62
+                    > USED AT LINE 63
+                    > USED AT LINE 70
+                    > USED AT LINE 71
+NN2:                0038 DEFINED AT LINE 138
+                    > USED AT LINE 42
+                    > USED AT LINE 55
+                    > USED AT LINE 65
+                    > USED AT LINE 73
+HH2:                0039 DEFINED AT LINE 139
+                    > USED AT LINE 74
+OR:                 003A DEFINED AT LINE 140
+AR:                 003B DEFINED AT LINE 141
+YR:                 003C DEFINED AT LINE 142
+GG2:                003D DEFINED AT LINE 143
+EL:                 003E DEFINED AT LINE 144
+BB2:                003F DEFINED AT LINE 145
