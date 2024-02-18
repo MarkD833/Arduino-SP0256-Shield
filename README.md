@@ -39,6 +39,8 @@ An assembled shield (missing the EEPROM chip).
 
 Start with the discrete components - there are a few resistors and capacitors which should be easy to hand solder. Then add the various IC sockets and the header pins.
 
+The header pins are best inserted into the Arduino UNO board first and then the shield placed on to of them. That way all the headers will be vertical and mate up with the UNO sockets properly.
+
 When you've installed all the basic components, and before fitting any chips, check that you have 5V on the VCC pins of the SP0256-AL2, 74HCT595 and 25LC256.
 
 Install the SP0256-AL2, 74HCT595 and the 25LC256 EEPROM. 
