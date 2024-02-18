@@ -29,6 +29,11 @@ Unlike the Digitalker chip, the SP0256-AL2 runs from 5V which is sourced from th
 
 The audio circuitry is lifted directly from the SP0256-AL2 datasheet.
 
+# The Arduino UNO Shield
+
+![](./images/board2.png)
+![](./images/board3.png)
+
 # Assembly
 
 Start with the discrete components - there are a few resistors and capacitors which should be easy to hand solder. Then add the various IC sockets and the header pins.
@@ -85,6 +90,8 @@ I discovered a [software implementation of the CTS256 chip](https://github.com/G
 > PA2 HH1 EH LL OW PA3
 >
 > Conversion complete.
+
+It's not perfect but it does provide a reasonable starting point for creating your own words.
 
 # Known errors
 
