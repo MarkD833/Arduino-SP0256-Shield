@@ -60,6 +60,8 @@ Note that the SP0256-AL2 needs a silence allophone such as PA1 at the end of a s
 
 The test sketch also supports the upload of Intel-Hex records that are then programmed into the 25LC256 EEPROM. I've set the baud rate for the serial port to 9600 baud as there is no handshaking with the host and setting the baud rate too high will likely result in buffer overruns whilst waiting for the previous Intel-Hex record to be programmed into the EEPROM.
 
+The sketch requires the EEPROM_SPI_WE library in order to write to the 25LC256 EEPROM. It can be installed via the Arduino library manager.
+
 # On-board vocabulary
 
 The board also includes a 25LC256 EEPROM to store pre-defined sequences of allophones that can be read back and transferred to the SP0256-AL2 chip.
