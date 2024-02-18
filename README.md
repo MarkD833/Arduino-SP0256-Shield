@@ -50,20 +50,26 @@ or
 
 Note that the SP0256-AL2 needs a silence allophone such as PA1 at the end of a sequence otherwise it continues to output the last sound it made.
 
-The test sketch also supports the upload of Intel-Hex records that are then programmed into the 25LC256 EEPROM. I've set the baud rate sor the serial port to 9600 baud as there is no handshaking with the host and setting the baud rate too high will likely result in buffer overruns whilst waiting for the previous iHex record to be programmed into the EEPROM.
+The test sketch also supports the upload of Intel-Hex records that are then programmed into the 25LC256 EEPROM. I've set the baud rate for the serial port to 9600 baud as there is no handshaking with the host and setting the baud rate too high will likely result in buffer overruns whilst waiting for the previous Intel-Hex record to be programmed into the EEPROM.
+
+# On-board vocabulary
+
+The board also includes a 25LC256 EEPROM to store pre-defined sequences of allophones that can be read back and transferred to the SP0256-AL2 chip.
 
 # Creating a library of words
 
 It took a little bit of lateral thinking but I discovered that I could use the free online assembler at [ASM80.com](https://asm80.com) to create Intel Hex records.
 
-The layout of the EEPROM memory starts with a lookup table at address 0x0000. The first word is the number of entries in the lookup table. Each word after that is a start address in the EEPROM for a sequence of allophones terminated with an 0xFF.
-
 I've included a sample library of a few words in the code folder called speech_1.asm. This plain text file can be pasted into a new file on asm80.com (I used the 8080 CPU type when creating the new file). The file is then saved and compiled to produce the Intel-Hex file which is then copied (CTRL-C) and then pasted using TeraTerm Pro straight onto the UNO serial port.
 
 The sketch will detect the leading : and assume the rest of the line is an Intel-Hex record and read it in, parse it and program it into the EEPROM. 
 
+The layout of the EEPROM memory starts with a lookup table at address 0x0000. The first word is the number of entries in the lookup table. Each word after that is a start address in the EEPROM for a sequence of allophones terminated with an 0xFF.
+
 To speak one of the stored phrases, just type in the phrase number + 100. The first phrase stored in the EEPROM is played back by entering 101 as the phrase. Numbers less than 100 are assumed to be the allophone numbers and passed directly to the SP0256-AL2 chip.
- 
+
+There's very little error checking in the demonstration code.
+  
 # Further information
 
 Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256. The SP0256-AL2 datasheet details the allophones as well as examples of their use in english words.
