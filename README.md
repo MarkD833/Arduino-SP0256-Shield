@@ -31,8 +31,9 @@ The audio circuitry is lifted directly from the SP0256-AL2 datasheet.
 
 # The Arduino UNO Shield
 
+An assembled shield (missing the EEPROM chip).
 ![](./images/board2.jpg)
-![](./images/board3.jpg)
+
 
 # Assembly
 
