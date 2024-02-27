@@ -88,7 +88,7 @@ void setup() {
 
 void loop() {
   char * tok;
-  uint8_t allophone;
+  uint16_t allophone;
 
   // process any serial commands received
   waitForUserInput();
@@ -105,6 +105,7 @@ void loop() {
       }
       tok = strtok( rxCharBuff, " " );
       while ( tok != 0 ) {
+        // if 1st char is A..Z then allophone has been typed
         if ( isalpha( tok[0] ) ) {
           // allophone - so look it up
           allophone = lookup( tok );
@@ -362,5 +363,5 @@ uint8_t decodeIntelHex() {
   // if the checksum is ZERO, then we've got a valid record
   if ( checksum == 0 ) return 0;
 
-  return 2;
+  return '.';
 }

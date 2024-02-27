@@ -72,6 +72,8 @@ It took a little bit of lateral thinking but I discovered that I could use the f
 
 I've included a sample library of a few words in the code folder called speech_1.asm. This plain text file can be pasted into a new file on asm80.com (I used the 8080 CPU type when creating the new file). The file is then saved and compiled to produce the Intel-Hex file which is then copied (CTRL-C) and then pasted using TeraTerm Pro straight onto the UNO serial port.
 
+There is now a second library with quite a few more words in it. It's in the code folder called speech_2.asm.
+
 The sketch will detect the leading : and assume the rest of the line is an Intel-Hex record and read it in, parse it and program it into the EEPROM. 
 
 The layout of the EEPROM memory starts with a lookup table at address 0x0000. The first word is the number of entries in the lookup table. Each word after that is a start address in the EEPROM for a sequence of allophones terminated with an 0xFF.
