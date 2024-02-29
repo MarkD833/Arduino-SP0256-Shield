@@ -81,7 +81,7 @@ The layout of the EEPROM memory starts with a lookup table at address 0x0000. Th
 To speak one of the stored phrases, just type in the phrase number + 100. The first phrase stored in the EEPROM is played back by entering 101 as the phrase. Numbers less than 100 are assumed to be the allophone numbers and passed directly to the SP0256-AL2 chip.
 
 There's very little error checking in the demonstration code.
-  
+
 # Further information
 
 Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256. The SP0256-AL2 datasheet details the allophones as well as examples of their use in english words.
@@ -100,9 +100,27 @@ I discovered a [software implementation of the CTS256 chip](https://github.com/G
 
 It's not perfect but it does provide a reasonable starting point for creating your own words.
 
+# An even bigger library of words (over 500)!
+ 
+There's now a new sketch called TEST_04 in the code folder that is **only** compatible with the VOCAB.HEX file. There's a lot of words in the new vocabulary. These words are the words that are available in the Digitalker DVSS software (give or take a few!).
+
+The general layout of the file is the same - i.e. lookup table at the start followed by the individual words. I've slightly reorganised the lookup table. Starting at address 0000 are the pointers to all the words that begin with A. Starting at address 500 (that's 500 decimal) are the pointers to all the words that begin with B. Starting at address 1000 are the pointers to all the words that begin with C and so on.
+
+That gives 500 bytes (or 250 pointers => 250 words) to store all the words beginning with a certain letter. 250 words should be enough!
+
+If you want to add a new word, then simply tag it on to the end of the group of words with the same first letter. That way you don't need to adjust the number associated with any existing word. Well, not unless you end up with more than 250 words with the same first letter. 
+
+When using the Arduino sketch, to say the word ABORT, its index is 2 in the lookup table. For the word CANCEL, its index is 502 and for SATURDAY its index is 4502.
+ 
+Note that i've not tested every single word to see if it sounds intelligible. The allophones were generated from an emulation of the CTS256 chip and some will need tweeking to make them sound like the intended phrase.
+
 # Known errors
 
-So far the only addition is a 10K pull up resistor on the ALD line to stop spurious sounds whilst uploading sketches.
+The addition of a 10K pull up resistor on the ALD line stops spurious sounds whilst uploading sketches.
+
+There may be an issue with the code that handles the writing of the Intel-HEX data to the EEPROM. When trying to load the VOCAB.HEX file using the sketch, the data sometimes got messed up such that only partial words were spoken. I've not figured out whether this is a problem with my code or the EEPROM library as the HEX file is correct.
+ 
+# Releases
 
 * 0.1
     * Initial Release
