@@ -47,7 +47,7 @@ Install the SP0256-AL2, 74HCT595 and the 25LC256 EEPROM.
 
 # Speaking the first words
 
-I've created a simple test sketch that you can use to send any of the allophones. It's in the code folder and called Test_03. You can type in either the allophone number (0-63) or the allophone name. Multiple allophones can be generated - simply put a space between each allophone.
+I've created a simple test sketch that you can use to send any of the allophones. It's in the code folder and called ALLOTEST. You can type in either the allophone number (0-63) or the allophone name. Multiple allophones can be generated - simply put a space between each allophone.
  As a start, the allophones for the word "hello" are:
  
 > PA2 HH1 EH LL OW PA1
@@ -61,30 +61,6 @@ Note that the SP0256-AL2 needs a silence allophone such as PA1 at the end of a s
 The test sketch also supports the upload of Intel-Hex records that are then programmed into the 25LC256 EEPROM. I've set the baud rate for the serial port to 9600 baud as there is no handshaking with the host and setting the baud rate too high will likely result in buffer overruns whilst waiting for the previous Intel-Hex record to be programmed into the EEPROM.
 
 The sketch requires the EEPROM_SPI_WE library in order to write to the 25LC256 EEPROM. It can be installed via the Arduino library manager.
-
-# On-board vocabulary
-
-The board also includes a 25LC256 EEPROM to store pre-defined sequences of allophones that can be read back and transferred to the SP0256-AL2 chip.
-
-# Creating a library of words
-
-It took a little bit of lateral thinking but I discovered that I could use the free online assembler at [ASM80.com](https://asm80.com) to create Intel Hex records.
-
-I've included a sample library of a few words in the code folder called speech_1.asm. This plain text file can be pasted into a new file on asm80.com (I used the 8080 CPU type when creating the new file). The file is then saved and compiled to produce the Intel-Hex file which is then copied (CTRL-C) and then pasted using TeraTerm Pro straight onto the UNO serial port.
-
-There is now a second library with quite a few more words in it. It's in the code folder called speech_2.asm.
-
-The sketch will detect the leading : and assume the rest of the line is an Intel-Hex record and read it in, parse it and program it into the EEPROM. 
-
-The layout of the EEPROM memory starts with a lookup table at address 0x0000. The first word is the number of entries in the lookup table. Each word after that is a start address in the EEPROM for a sequence of allophones terminated with an 0xFF.
-
-To speak one of the stored phrases, just type in the phrase number + 100. The first phrase stored in the EEPROM is played back by entering 101 as the phrase. Numbers less than 100 are assumed to be the allophone numbers and passed directly to the SP0256-AL2 chip.
-
-There's very little error checking in the demonstration code.
-
-# Further information
-
-Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256. The SP0256-AL2 datasheet details the allophones as well as examples of their use in english words.
 
 # Bored with trying to work out the required allophones yet?
 
@@ -100,19 +76,47 @@ I discovered a [software implementation of the CTS256 chip](https://github.com/G
 
 It's not perfect but it does provide a reasonable starting point for creating your own words.
 
-# An even bigger library of words (over 500)!
- 
-There's now a new sketch called TEST_04 in the code folder that is **only** compatible with the VOCAB.HEX file. There's a lot of words in the new vocabulary. These words are the words that are available in the Digitalker DVSS software (give or take a few!).
+Note that i've not tested every single word to see if it sounds intelligible. The allophones were generated from an emulation of the CTS256 chip and some will need tweeking to make them sound like the intended phrase.
 
-The general layout of the file is the same - i.e. lookup table at the start followed by the individual words. I've slightly reorganised the lookup table. Starting at address 0000 are the pointers to all the words that begin with A. Starting at address 500 (that's 500 decimal) are the pointers to all the words that begin with B. Starting at address 1000 are the pointers to all the words that begin with C and so on.
+# On-board vocabulary
+
+The board also includes a 25LC256 EEPROM to store pre-defined sequences of allophones that can be read back and transferred to the SP0256-AL2 chip.
+
+## Creating a library of words
+
+It took a little bit of lateral thinking but I discovered that I could use the free online assembler at [ASM80.com](https://asm80.com) to create Intel Hex records.
+
+I've included a sample library of quite a few words in the code folder called vocab_v1.0.asm. This plain text file can be pasted into a new file on asm80.com (I used the 8080 CPU type when creating the new file).
+
+The layout of the EEPROM memory is detailed in the vocabulary file but I simply grouped the words so that all words starting with A are together and all words starting with B are together etc.
+
+Starting at address 0002 are the pointers to all the words that begin with A. Starting at address 500 (that's 500 decimal) are the pointers to all the words that begin with B. Starting at address 1000 are the pointers to all the words that begin with C and so on.
 
 That gives 500 bytes (or 250 pointers => 250 words) to store all the words beginning with a certain letter. 250 words should be enough!
 
 If you want to add a new word, then simply tag it on to the end of the group of words with the same first letter. That way you don't need to adjust the number associated with any existing word. Well, not unless you end up with more than 250 words with the same first letter. 
 
-When using the Arduino sketch, to say the word ABORT, its index is 2 in the lookup table. For the word CANCEL, its index is 502 and for SATURDAY its index is 4502.
- 
-Note that i've not tested every single word to see if it sounds intelligible. The allophones were generated from an emulation of the CTS256 chip and some will need tweeking to make them sound like the intended phrase.
+The file is then saved and compiled to produce the Intel-Hex file.
+
+## Programming the vocabulary into the EEPROM
+
+I've created a simple test sketch that you can use to program the on-board EEPROM. Or you can use an external programmer to program the chip. The sketch is in the code folder and called EE_PROG.
+
+With the sketch running, you can then upload the vocabulary using a terminal program such as TeraTerm. I used CoolTerm as it will display the output from the sketch as the upload progresses.
+
+NOTE: I had to edit the Intel-Hex file generated by ASM80 to insert a final new line so that the end of file record was processed by the EEPROM programming sketch.
+
+## Accesing the EEPROM vocabulary
+
+I've created a simple sketch to recall the words in the vocabulary. The sketch is in the code folder and called EE_TEST.
+
+To speak one of the stored phrases, just type in the phrase index number. To say the word OK, the index number is 3506 in the vocab v1.0 file.
+
+There's very little error checking in the demonstration code.
+
+# Further information
+
+Have a look in the datasheets folder for information on the SP0256-AL2 chip and its companion, the CTS256. The SP0256-AL2 datasheet details the allophones as well as examples of their use in english words.
 
 # Known errors
 

@@ -1,4 +1,7 @@
 ;====================================================================
+; Arduino SP0256-AL2 Shield Project
+; https://github.com/MarkD833/Arduino-SP0256-Shield
+;====================================================================
 ; This is the lookup table that will provide the starting address
 ; in the EEPROM for the sequence of allophones required to speak
 ; the word or phrase.
@@ -9,16 +12,22 @@
 ; The vocabulary is split into evenly spaced blocks of words so that
 ; all words starting with the same letter are grouped in the same block.
 ;
-; For example, to speak the word DANGER, the index is 751 and to speak
-; the word INCHES, the index is 2004.
+; For example, to speak the word DANGER, the index number is 751 and
+; to speak the word INCHES, the index number is 2004.
 ;
 ; Feel free to alter the spacing but as it stands, you can have up to
 ; 250 words or phrases in each block.
 ;====================================================================
 
-VOCAB:
-; Words starting with A - index starts at 0
+;====================================================================
+; Edit this text string to hold whatever identifier you want
+;
+VERSION_STR EQU "SP0256 Vocabulary v1.0"
+
     ORG 0000
+    DW  VERSTR
+    
+; Words starting with A - index starts at 1
 
 	DW	A,ABLE,ABORT,ABORTED,AC
 	DW	ACCUMULATE,ACKNOWLEDGE,ACTIVATE,ACTIVATING,ACTIVE
@@ -32,7 +41,7 @@ VOCAB:
 
 ; Words starting with B - index starts at 250
 	ORG	500
-	DW	B,BACK,BAROMETRIC,BASEMENT,BATH
+    DW	B,BACK,BAROMETRIC,BASEMENT,BATH
 	DW	BATTERY,BEEN,BEFORE,BETWEEN,BLACK
 	DW	BLOCKING,BLUE,BRAKE,BUDGET,BUDGETING
 	DW	BUILDING,BUOY,BUSY,BUTTON,BUY
@@ -214,13 +223,17 @@ VOCAB:
 	DW	Z,ZERO,ZONE
 
 ;====================================================================
+; Version string from the start of this file will get stored here
+;====================================================================
+VERSTR:
+    DB  VERSION_STR,0
+    
+;====================================================================
 ; These are the sequences of allophones needed to create the sound
 ; of each individual word. Make sure to end each sequence with 0xFF
 ;
 ; The words (i.e. labels) do not need to be in alphabetical order. 
 ;====================================================================
-
-	ORG	13000
 
 A:		DB	PA2,EY,PA3,0xFF
 ABLE:		DB	PA2,EY,PA2,BB2,EL,PA3,0xFF
@@ -519,7 +532,7 @@ OCTOBER:		DB	PA2,AA,PA3,KK1,PA3,TT2,AA,PA2,BB2,ER1,PA3,0xFF
 OF:		DB	PA2,AX,VV,PA3,0xFF
 OFF:		DB	PA2,AO,FF,FF,PA3,0xFF
 OHM:		DB	PA2,AA,MM,PA3,0xFF
-OKAY:		DB	PA2,AA,PA3,KK1,EY,PA3,0xFF
+OKAY:		DB	PA2,OW,PA3,KK1,EY,PA3,0xFF
 ON:		DB	PA2,AA,NN1,PA3,0xFF
 ONE:		DB	PA2,WW,AX,NN1,PA3,0xFF
 ONWARD:		DB	PA2,AA,NN1,WW,OR,PA2,DD1,PA3,0xFF
