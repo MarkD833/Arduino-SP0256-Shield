@@ -120,12 +120,15 @@ Have a look in the datasheets folder for information on the SP0256-AL2 chip and 
 
 # Known errors
 
-The addition of a 10K pull up resistor on the ALD line stops spurious sounds whilst uploading sketches.
+* The addition of a 10K pull up resistor on the ALD line stops spurious sounds whilst uploading sketches.
 
-There may be an issue with the code that handles the writing of the Intel-HEX data to the EEPROM. When trying to load the VOCAB.HEX file using the sketch, the data sometimes got messed up such that only partial words were spoken. I've not figured out whether this is a problem with my code or the EEPROM library as the HEX file is correct.
+* There may be an issue with the code that handles the writing of the Intel-HEX data to the EEPROM. When trying to load the vocabulary Intel-Hex file using the EE_PROG sketch, the data sometimes got messed up such that only partial words were spoken. I've not figured out whether this is a problem with my code or the EEPROM library as the Intel-Hex file is correct.
  
 # Releases
 
+* 0.2
+    * New demonstrations sketches
+    * New large vocabulary file for the EEPROM
 * 0.1
     * Initial Release
 
